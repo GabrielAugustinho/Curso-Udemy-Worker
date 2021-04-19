@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Course.Entities.Enums;
 
 namespace Course.Entities
@@ -20,6 +19,28 @@ namespace Course.Entities
             Level = level;
             BaseSalary = baseSalary;
             Departament = departament;
+        }
+
+        public void AddContract(HourContract contract)
+        {
+            Contract.Add(contract);
+        }
+
+        public void RemoveContract(HourContract contract)
+        {
+            Contract.Remove(contract);
+        }
+
+        public double Income(int year, int mounth)
+        {
+            double sum = BaseSalary;
+            foreach(HourContract contract in Contract)
+            {
+                if (contract.Date.Year == year && contract.Date.Month == mounth)
+                    sum += contract.TotalValue();
+            }
+
+            return sum;
         }
     }
 }
